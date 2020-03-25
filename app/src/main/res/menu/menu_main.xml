@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mareu.ui.MainActivity">
+    <item
+        android:id="@+id/filtre_date"
+        android:orderInCategory="100"
+        android:title="Filtre par date"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/filtre_location"
+        android:orderInCategory="100"
+        android:title="Filtre par lieu"
+        app:showAsAction="never"
+        />
+</menu>
