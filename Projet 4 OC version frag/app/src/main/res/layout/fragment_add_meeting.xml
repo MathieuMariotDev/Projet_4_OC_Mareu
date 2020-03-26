@@ -20,14 +20,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/LocationMeeting"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:hint="Lieu de la réunion">
+           >
 
-        </EditText>
+        </Spinner>
 
         <EditText
             android:id="@+id/subject_meeting"

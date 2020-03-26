@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
-    Calendar filtrer;
+    public Calendar filtrer;
     public ListMeetingAdapter mAdapter;
     public List<Meeting> mMeetingList;
     private MeetingApiService mApiService= new DummyMeetingApiService();

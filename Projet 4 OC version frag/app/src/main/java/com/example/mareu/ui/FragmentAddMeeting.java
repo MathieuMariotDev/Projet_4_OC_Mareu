@@ -11,10 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.mareu.R;
 import com.example.mareu.modele.Meeting;
@@ -38,10 +42,11 @@ import butterknife.OnClick;
  * Use the {@link FragmentAddMeeting#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.LocationMeeting)
-    EditText LocationMeeting;
+    @BindView(R.id.spinner)
+    Spinner LocationMeeting;
+    private String Location;
     @BindView(R.id.subject_meeting)
     EditText Subject;
     @BindView(R.id.participants_email)
@@ -75,6 +80,10 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.meeting_location, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        LocationMeeting.setAdapter(adapter);
+        LocationMeeting.setOnItemSelectedListener(this);
         return view;
     }
 
@@ -83,7 +92,7 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         Meeting meeting = new Meeting(
 
                 CalendarMeeting,
-                LocationMeeting.getEditableText().toString(),
+                Location,
                 Subject.getEditableText().toString(),
                 Listemail
         );
@@ -119,4 +128,14 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Location = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), Location ,  Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Toast.makeText(parent.getContext(), "Veuillez sélectionner un lieu de réunion" ,  Toast.LENGTH_SHORT).show();
+    }
 }
