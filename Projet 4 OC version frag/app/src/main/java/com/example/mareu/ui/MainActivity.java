@@ -41,14 +41,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity /*implements DatePickerDialog.OnDateSetListener */ {
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
     public Calendar filtrer;
     public ListMeetingAdapter mAdapter;
     public List<Meeting> mMeetingList;
-    private MeetingApiService mApiService= new DummyMeetingApiService();
+    private MeetingApiService mApiService = new DummyMeetingApiService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +86,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         switch (item.getItemId()) {
             case R.id.filtre_date:
                 Toast.makeText(this, "Filtre par date", Toast.LENGTH_LONG).show();
-                DialogFragment datePickerFragment2 = new DatePickerFragment();
-                datePickerFragment2.show(getSupportFragmentManager(), "datePickerFiltrer");
+                //DialogFragment datePickerFragment2 = new DatePickerFragment();
+                //datePickerFragment2.show(getSupportFragmentManager(), "datePickerFiltrer");
+                //FilterMeetingFragment.newInstance();
                 return true;
             case R.id.filtre_location:
                 Toast.makeText(this, "Filtre par lieu", Toast.LENGTH_LONG).show();
@@ -99,24 +100,25 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
-    @Override
+   /* @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         filtrer.set(year, month, dayOfMonth);
         Log.d("Debug", "onDateSet: " + filtrer);
         initListFilter(filtrer);
-    }
+    }*/
 
-    private void initListFilter(Calendar Filtrer){
-        mMeetingList=mApiService.getMeetingList();
+   /* private void initListFilter(Calendar Filtrer) {
+        mMeetingList = mApiService.getMeetingList();
         List<Meeting> MeetingByDay = new ArrayList<>();
-        for(Meeting meeting : mMeetingList){
-            if(meeting.getDayTimeCalendar().get(Calendar.YEAR) == Filtrer.get(Calendar.YEAR) && meeting.getDayTimeCalendar().get(Calendar.MONTH) == Filtrer.get(Calendar.MONTH) &&meeting.getDayTimeCalendar().get(Calendar.DAY_OF_MONTH) == Filtrer.get(Calendar.DAY_OF_MONTH) )
+        for (Meeting meeting : mMeetingList) {
+            if (meeting.getDayTimeCalendar().get(Calendar.YEAR) == Filtrer.get(Calendar.YEAR) && meeting.getDayTimeCalendar().get(Calendar.MONTH) == Filtrer.get(Calendar.MONTH) && meeting.getDayTimeCalendar().get(Calendar.DAY_OF_MONTH) == Filtrer.get(Calendar.DAY_OF_MONTH))
                 MeetingByDay.add(meeting);
         }
         Toast.makeText(this, "Les réunions a date indiqué", Toast.LENGTH_LONG).show();
         mAdapter = new ListMeetingAdapter(MeetingByDay);
-       mFragmentListMeeting.mRecyclerView.setAdapter(mAdapter);
-    }
+        mFragmentListMeeting.mRecyclerView.setAdapter(mAdapter);
+    }*/
+
     private void configureAndShowMainFragment() {
         mFragmentListMeeting = (FragmentListMeeting) getSupportFragmentManager().findFragmentById(R.id.frame_layout_list_meeting);
 
@@ -154,4 +156,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     void addMeeting() {
         AddMeeting.navigate(this);
     }
+
+
 }

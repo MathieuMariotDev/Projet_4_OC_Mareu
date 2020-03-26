@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ import butterknife.OnClick;
  * Use the {@link FragmentAddMeeting#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
+public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnTimeSetListener/*, DatePickerDialog.OnDateSetListener*/, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.spinner)
     Spinner LocationMeeting;
@@ -54,7 +55,7 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     @BindView(R.id.Email_List)
     TextView Item_list_mail;
     private List<String> Listemail = new ArrayList<>();
-    private Calendar CalendarMeeting = Calendar.getInstance();
+    public Calendar CalendarMeeting = Calendar.getInstance();
     public String Time;
     private MeetingApiService mApiService = new DummyMeetingApiService();
 
@@ -89,6 +90,7 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
 
     @OnClick(R.id.create)
     void AddMeeting() {
+        Log.d("Debug", "AddMeetingFragment: " +CalendarMeeting);
         Meeting meeting = new Meeting(
 
                 CalendarMeeting,
@@ -103,7 +105,10 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     @OnClick(R.id.BtnDialogPickers)
     void OpenTimePicker(View v) {
         DialogFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.show(getChildFragmentManager(), "datePicker");
+        //datePickerFragment.show(getChildFragmentManager(), "datePicker");
+        //datePickerFragment.setTargetFragment(this,123);
+        datePickerFragment.show(getChildFragmentManager(),"DatePicker");
+
         DialogFragment timePickerFragment = new TimePickerFragment();
         timePickerFragment.show(getChildFragmentManager(), "timePicker");
     }
@@ -114,11 +119,11 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         CalendarMeeting.set(Calendar.MINUTE, minute);
     }
 
-    @Override
+    /*@Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         CalendarMeeting.set(year, month, dayOfMonth);
         Log.d("Debug", "onDateSet: " + CalendarMeeting);
-    }
+    }*/
 
     @OnClick(R.id.Add_email)// Changer en event ?
     void BtnAddEmail(){
@@ -138,4 +143,6 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     public void onNothingSelected(AdapterView<?> parent) {
         Toast.makeText(parent.getContext(), "Veuillez sélectionner un lieu de réunion" ,  Toast.LENGTH_SHORT).show();
     }
+
+
 }
