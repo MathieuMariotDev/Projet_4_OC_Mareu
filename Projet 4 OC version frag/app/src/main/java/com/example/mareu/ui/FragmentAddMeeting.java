@@ -104,11 +104,14 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
 
     @OnClick(R.id.BtnDialogPickers)
     void OpenTimePicker(View v) {
-        DialogFragment datePickerFragment = new DatePickerFragment();
+        //DialogFragment datePickerFragment = new DatePickerFragment();
         //datePickerFragment.show(getChildFragmentManager(), "datePicker");
         //datePickerFragment.setTargetFragment(this,123);
-        datePickerFragment.show(getChildFragmentManager(),"DatePicker");
-
+        //datePickerFragment.show(getParentFragmentManager(),"DatePicker");
+        DatePickerFragment datePickerFragment = new DatePickerFragment().newIntance();
+        datePickerFragment.setCallBack(onDate);
+        datePickerFragment.show(getParentFragmentManager().beginTransaction(),"DatePickerFragment");
+        //getFragmentManager().beginTransaction()
         DialogFragment timePickerFragment = new TimePickerFragment();
         timePickerFragment.show(getChildFragmentManager(), "timePicker");
     }
@@ -119,7 +122,7 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         CalendarMeeting.set(Calendar.MINUTE, minute);
     }
 
-    /*@Override
+   /* @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         CalendarMeeting.set(year, month, dayOfMonth);
         Log.d("Debug", "onDateSet: " + CalendarMeeting);
@@ -144,5 +147,13 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         Toast.makeText(parent.getContext(), "Veuillez sélectionner un lieu de réunion" ,  Toast.LENGTH_SHORT).show();
     }
 
+    DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
 
+            CalendarMeeting.set(year, monthOfYear, dayOfMonth);
+            Log.d("Debug", "onDateSetTest/////: " + CalendarMeeting);
+        }
+    };
 }
