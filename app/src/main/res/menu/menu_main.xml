@@ -15,4 +15,11 @@
         android:title="Filtre par lieu"
         app:showAsAction="never"
         />
+    
+    <item
+        android:id="@+id/list_meeting"
+        android:orderInCategory="100"
+        android:title="Afficher la liste des réunions"
+        app:showAsAction="never"
+        />
 </menu>

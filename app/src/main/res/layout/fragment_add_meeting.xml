@@ -15,19 +15,19 @@
         />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="700dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/LocationMeeting"
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:hint="Lieu de la réunion">
+           >
 
-        </EditText>
+        </Spinner>
 
         <EditText
             android:id="@+id/subject_meeting"
@@ -62,11 +62,21 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/BtnDialogPickers"
+        android:id="@+id/BtnTimePickersStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Sélectionner l'heure de la réunion" />
+        <Button
+            android:id="@+id/BtnDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showTimePickerDialog"
-            android:text="Sélectionner l'heure de la réunion" />
+            android:text="Sélectionner la date de la réunion" />
+        <Button
+            android:id="@+id/BtnTimePickersEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sélectionner l'heure de fin de la réunion" />
 
         <Button
             android:id="@+id/create"
