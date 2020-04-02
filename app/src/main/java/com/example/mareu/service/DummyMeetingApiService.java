@@ -3,22 +3,29 @@ package com.example.mareu.service;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.mareu.modele.Meeting;
 import com.example.mareu.ui.FragmentListMeeting;
 import com.example.mareu.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private static List<Meeting> mMeetingList = new ArrayList<>();
+    private  static List<Meeting> mMeetingList = new ArrayList<>();
+
 
     @Override
     public void createMeeting(Meeting meeeting) {
         mMeetingList.add(meeeting);
-    }
+    } // normal
 
     public List<Meeting> getMeetingList() {
         return mMeetingList;
@@ -47,6 +54,8 @@ public class DummyMeetingApiService implements MeetingApiService {
                 MeetingByLocation.add(meeting);
             }
         }
+
         return MeetingByLocation;
     }
+
 }

@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
+    private List<Meeting> mMeetingList = new ArrayList<>(); //POC
     public Calendar filtrer = Calendar.getInstance();
     private MeetingApiService mApiService = new DummyMeetingApiService();
     private Menu menu;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
     }
 
     public static void navigate(Context activity) {
+
         Intent intent = new Intent(activity, MainActivity.class); //Intent to open  AddNeighbourActivity
         ActivityCompat.startActivity(activity, intent, null); // Start of new  AddNeighbourActivity
     }

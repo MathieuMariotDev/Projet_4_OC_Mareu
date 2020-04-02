@@ -1,11 +1,13 @@
 package com.example.mareu.modele;
 
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class Meeting {
+public class Meeting /*implements Parcelable */{
     private int colormeeting;
     private String time;//the timetable meeting
     private String location;//location meeting
@@ -23,6 +25,11 @@ public class Meeting {
         this.topic = topic;
         this.ListEmail = ListEmail;
     }
+    /*@Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeInt(colormeeting);
+        parcel.write
+    }*/
 
     public int getColormeeting() {
         return colormeeting;
@@ -72,7 +79,6 @@ public class Meeting {
     public void setLocation(String location) {
         this.location = location;
     }
-
 
 }
 
