@@ -1,11 +1,14 @@
 package com.example.mareu.ui;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +31,7 @@ import com.example.mareu.service.MeetingApiService;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +42,7 @@ import butterknife.OnClick;
  * Use the {@link FragmentAddMeeting#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnTimeSetListener/*, DatePickerDialog.OnDateSetListener*/, AdapterView.OnItemSelectedListener {
+public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.OnTimeSetListener/*, DatePickerDialog.OnDateSetListener,*/ AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.spinner)
     Spinner LocationMeeting;
@@ -53,6 +57,8 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     public Calendar CalendarMeeting = Calendar.getInstance();
     public String Time;
     private MeetingApiService mApiService = new DummyMeetingApiService();
+    public Calendar CalendarEndMeeting = Calendar.getInstance();
+    private int ColorMeeting;
 
     public FragmentAddMeeting() {
         // Required empty public constructor
@@ -76,7 +82,7 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_meeting, container, false);
         ButterKnife.bind(this, view);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.meeting_location, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.meeting_location, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         LocationMeeting.setAdapter(adapter);
         LocationMeeting.setOnItemSelectedListener(this);
@@ -85,10 +91,11 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
 
     @OnClick(R.id.create)
     void AddMeeting() {
-        Log.d("Debug", "AddMeetingFragment: " +CalendarMeeting);
+        Log.d("Debug", "AddMeetingFragment: " + CalendarMeeting);
         Meeting meeting = new Meeting(
-
+                randomColor(),
                 CalendarMeeting,
+                CalendarEndMeeting,
                 Location,
                 Subject.getEditableText().toString(),
                 Listemail
@@ -99,28 +106,75 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
 
     @OnClick(R.id.BtnTimePickersStart)
     void OpenTimePicker(View v) {
-        DialogFragment timePickerFragment = new TimePickerFragment();
-        timePickerFragment.show(getChildFragmentManager(), "timePickerDebut");
+        //DialogFragment timePickerFragment = new TimePickerFragment();
+        // timePickerFragment.show(getChildFragmentManager(), "timePickerDebut");
+        TimePickerFragment timePickerDialog = new TimePickerFragment().newIntance();
+        timePickerDialog.setCallBack(onTimeStart);
+        timePickerDialog.show(getParentFragmentManager().beginTransaction(), "TimePickerStart");
     }
 
     @OnClick(R.id.BtnTimePickersEnd)
-    void OpenTimePickerEnd(){
-        DialogFragment timePickerFragment = new TimePickerFragment();
-        timePickerFragment.show(getChildFragmentManager(), "timePickerFin");
+    void OpenTimePickerEnd() {
+        //DialogFragment timePickerFragment = new TimePickerFragment();
+        //timePickerFragment.show(getChildFragmentManager(), "timePickerFin");
+        TimePickerFragment timePickerDialog = new TimePickerFragment().newIntance();
+        timePickerDialog.setCallBack(onTimeEnd);
+        timePickerDialog.show(getParentFragmentManager().beginTransaction(), "TimePickerEnd");
     }
 
     @OnClick(R.id.BtnDatePicker)
-    void OpenDatePicker(){
+    void OpenDatePicker() {
         DatePickerFragment datePickerFragment = new DatePickerFragment().newIntance();
         datePickerFragment.setCallBack(onDate);
-        datePickerFragment.show(getParentFragmentManager().beginTransaction(),"DatePickerFragment");
+        datePickerFragment.show(getParentFragmentManager().beginTransaction(), "DatePickerFragment");
     }
 
-    @Override
+   /* @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        CalendarMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        CalendarMeeting.set(Calendar.MINUTE, minute);
+
+    }*/
+
+    TimePickerDialog.OnTimeSetListener onTimeStart = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            CalendarMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            CalendarMeeting.set(Calendar.MINUTE, minute);
+
+        }
+    };
+
+    TimePickerDialog.OnTimeSetListener onTimeEnd = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            CalendarEndMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            CalendarEndMeeting.set(Calendar.MINUTE, minute);
+            lockedTime();
+        }
+    };
+
+
+    public void lockedTime() {
+        List<Meeting> meetings = mApiService.getMeetingList();
+        for (Meeting meeting : meetings) {
+
+            if (((CalendarEndMeeting.get(Calendar.YEAR) == meeting.getDayTimeEndCalendar().get(Calendar.YEAR) && CalendarEndMeeting.get(Calendar.MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.MONTH) && CalendarEndMeeting.get(Calendar.DAY_OF_MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.DAY_OF_MONTH))) && meeting.getLocation().equals(Location)) {
+
+
+                if (!((CalendarMeeting.before(meeting.getDayTimeCalendar()) || CalendarMeeting.after(meeting.getDayTimeEndCalendar())) && (CalendarEndMeeting.before(meeting.getDayTimeCalendar()) || CalendarEndMeeting.after(meeting.getDayTimeEndCalendar())))) {
+                    //Toast.makeText(getActivity(), "Votre réunion empiète sur une autre.Veuillez de nouveau saisir une autre heure ou sélectionner une autre salle", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder ErrorMsg = new AlertDialog.Builder(getActivity());
+                    ErrorMsg.setMessage("Votre réunion est sur un créneaux déjà réservé veuillez sélectionner une autre salle ou décaller la réunion en sélectionnant une heure de début et de fin valide")
+                            .setTitle("Problème pour placer la réunion");
+                    ErrorMsg.create();
+                    ErrorMsg.show();
+
+                }
+            }
+            Toast.makeText(getActivity(), "Votre réunion est correctement placé.Vous pouvez valider", Toast.LENGTH_LONG).show();
+        }
     }
+
+
 
    /* @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -128,8 +182,8 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
         Log.d("Debug", "onDateSet: " + CalendarMeeting);
     }*/
 
-    @OnClick(R.id.Add_email)// Changer en event ?
-    void BtnAddEmail(){
+    @OnClick(R.id.Add_email)
+    void BtnAddEmail() {
         Listemail.add(Email.getText().toString());
         Item_list_mail.setText(Listemail.toString());
         Email.getText().clear();
@@ -139,12 +193,12 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Location = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), Location ,  Toast.LENGTH_SHORT).show();
+        Toast.makeText(parent.getContext(), Location, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Toast.makeText(parent.getContext(), "Veuillez sélectionner un lieu de réunion" ,  Toast.LENGTH_SHORT).show();
+        Toast.makeText(parent.getContext(), "Veuillez sélectionner un lieu de réunion", Toast.LENGTH_SHORT).show();
     }
 
     DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
@@ -153,7 +207,15 @@ public class FragmentAddMeeting extends Fragment implements TimePickerDialog.OnT
                               int dayOfMonth) {
 
             CalendarMeeting.set(year, monthOfYear, dayOfMonth);
+            CalendarEndMeeting.set(year, monthOfYear, dayOfMonth);
             Log.d("Debug", "onDateSetTest/////: " + CalendarMeeting);
         }
     };
+
+    public int randomColor(){
+        Random random= new Random();
+
+        return ColorMeeting=Color.argb(255, random.nextInt(256), random.nextInt(256),
+                random.nextInt(256));
+    }
 }

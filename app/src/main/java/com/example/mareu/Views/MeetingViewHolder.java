@@ -3,6 +3,7 @@ package com.example.mareu.Views;
 import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,16 +28,19 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     //@BindView(R.id.icone_color)
     @BindView(R.id.item_list_delete)
     ImageButton DeleteItem;
+    @BindView(R.id.icone_color)
+    ImageView IconeColor;
     String SourceInformation;
 
     public MeetingViewHolder(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
-    public void updateWithMeeting(Meeting meeting){
+    public void updateWithMeeting(Meeting meeting) {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
-        SourceInformation= "<b>" + meeting.getLocation() +" - " + dateFormat.format(meeting.getDayTimeCalendar().getTime()) +" - "+ meeting.getTopic() + "</b>";
+        IconeColor.setColorFilter(meeting.getColormeeting());
+        SourceInformation = "<b>" + meeting.getLocation() + " - " + dateFormat.format(meeting.getDayTimeCalendar().getTime()) + " - " + meeting.getTopic() + "</b>";
         this.Information.setText(Html.fromHtml(SourceInformation));
         this.ListMail.setText(meeting.getList().toString());
     }
