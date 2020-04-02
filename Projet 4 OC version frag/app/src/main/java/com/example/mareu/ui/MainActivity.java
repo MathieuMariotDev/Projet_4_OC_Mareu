@@ -49,11 +49,10 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
+   // private List<Meeting> mMeetingList = new ArrayList<>(); //POC
     public Calendar filtrer = Calendar.getInstance();
-    ;
-    public ListMeetingAdapter mAdapter;
-    public List<Meeting> mMeetingList;
     private MeetingApiService mApiService = new DummyMeetingApiService();
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +63,15 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         configureAndShowDetailFragment();
-        //FloatingActionButton fab = findViewById(R.id.BtnAddMeeting);
-        //configureRecylerView();
 
     }
 
-    /* private void configureRecylerView() {
-             this.mMeetingList= new ArrayList<>();
-             this.mAdapter = new ListMeetingAdapter(this.mMeetingList);
-             this.mRecyclerView.setAdapter(mAdapter);
-             this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-     }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.list_meeting).setVisible(false);
         return true;
     }
 
@@ -91,23 +84,22 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
         switch (item.getItemId()) {
             case R.id.filtre_date:
                 Toast.makeText(this, "Filtre par date", Toast.LENGTH_LONG).show();
-                //DialogFragment datePickerFragment2 = new DatePickerFragment();
-                //datePickerFragment2.show(getSupportFragmentManager(), "datePickerFiltrer");
-                //FilterMeetingFragment.newInstance();
                 DatePickerFragment datePickerFragment = new DatePickerFragment().newIntance();
                 datePickerFragment.setCallBack(onDate);
                 datePickerFragment.show(getSupportFragmentManager().beginTransaction(), "DatePickerFragment");
+                menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
             case R.id.filtre_location:
                 Toast.makeText(this, "Filtre par lieu sélectionner ", Toast.LENGTH_LONG).show();
                 AlerteDialogSpinner();
+                menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
             case R.id.list_meeting:
                 Toast.makeText(this, "La liste complête des réunnions ", Toast.LENGTH_LONG).show();
                 mFragmentListMeeting.onResume();
-            default:
+                menu.findItem(R.id.list_meeting).setVisible(false);
+                default:
                 return super.onOptionsItemSelected(item);
-//
 
         }
     }
@@ -171,7 +163,6 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
         mBuilder.setTitle("Selectionner la salle de réunion que vous souhaitez voire");
 
         Spinner mSpinner = (Spinner) mView.findViewById(R.id.spinner_dialog); // mView for shearch in layout dialog_spinner
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,getResources())
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.meeting_location, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
@@ -179,8 +170,6 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
         mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if(!mSpinner.getSelectedItem().toString().equalsIgnoreCase("Réunion 1"))
-                //Toast.makeText(this, "Validation du choix ", Toast.LENGTH_LONG).show();
                 initListWithFilter(mApiService.FilterByLocation(mSpinner.getSelectedItem().toString()));
                 dialog.dismiss();
             }

@@ -13,12 +13,12 @@ import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private static List<Meeting> mMeetingList = new ArrayList<>();
+    private  static List<Meeting> mMeetingList = new ArrayList<>(); //static
 
     @Override
     public void createMeeting(Meeting meeeting) {
         mMeetingList.add(meeeting);
-    }
+    } // normal
 
     public List<Meeting> getMeetingList() {
         return mMeetingList;
@@ -36,7 +36,6 @@ public class DummyMeetingApiService implements MeetingApiService {
             if (meeting.getDayTimeCalendar().get(Calendar.YEAR) == FilterDate.get(Calendar.YEAR) && meeting.getDayTimeCalendar().get(Calendar.MONTH) == FilterDate.get(Calendar.MONTH) && meeting.getDayTimeCalendar().get(Calendar.DAY_OF_MONTH) == FilterDate.get(Calendar.DAY_OF_MONTH))
                 MeetingByDay.add(meeting);
         }
-        //Toast.makeText(, "Les réunions a date indiqué", Toast.LENGTH_LONG).show();
         return MeetingByDay;
     }
 
@@ -50,4 +49,5 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
         return MeetingByLocation;
     }
+
 }

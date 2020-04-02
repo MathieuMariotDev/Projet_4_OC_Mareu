@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.FragmentAddMeeting">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,21 +11,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbaradd"
+        app:layout_constraintVertical_bias="0.0">
 
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="75dp"
-           >
+            android:layout_marginTop="20dp">
 
         </Spinner>
 
@@ -49,9 +54,10 @@
 
         <Button
             android:id="@+id/Add_email"
-            android:layout_width="90dp"
-            android:layout_height="55dp"
-            android:text="Ajouter l'email"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Ajoute l'email"
             android:textSize="15sp"
             app:cornerRadius="30dp" />
 
@@ -62,11 +68,29 @@
             android:textSize="12sp" />
 
         <Button
-            android:id="@+id/BtnDialogPickers"
+            android:id="@+id/BtnTimePickersStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="showTimePickerDialog"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorPrimary"
+
             android:text="Sélectionner l'heure de la réunion" />
+
+        <Button
+            android:id="@+id/BtnDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="Sélectionner la date de la réunion" />
+
+        <Button
+            android:id="@+id/BtnTimePickersEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Sélectionner l'heure de fin de la réunion" />
 
         <Button
             android:id="@+id/create"
@@ -75,10 +99,11 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:layout_marginTop="20dp"
+            android:backgroundTint="#CE0A24"
             android:text="Enregistrer"
-            app:cornerRadius="20dp" />
+            app:cornerRadius="50dp" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
