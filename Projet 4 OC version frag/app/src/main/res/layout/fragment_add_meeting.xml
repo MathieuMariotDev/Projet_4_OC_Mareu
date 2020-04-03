@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Sujet de la réunion">
+            android:hint="@string/Subject_meeting">
 
         </EditText>
 
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Email du participant"
+            android:hint="@string/MailParticipant"
             android:inputType="textEmailAddress" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Ajoute l'email"
+            android:text="@string/addemail"
             android:textSize="15sp"
             app:cornerRadius="30dp" />
 
@@ -74,7 +74,7 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
 
-            android:text="Sélectionner l'heure de la réunion" />
+            android:text="@string/SelectTimeMeeting" />
 
         <Button
             android:id="@+id/BtnDatePicker"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorAccent"
-            android:text="Sélectionner la date de la réunion" />
+            android:text="@string/SelectDateMeeting" />
 
         <Button
             android:id="@+id/BtnTimePickersEnd"
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Sélectionner l'heure de fin de la réunion" />
+            android:text="@string/SelectEndTimeMeeting" />
 
         <Button
             android:id="@+id/create"
@@ -100,7 +100,7 @@
             android:layout_margin="20dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#CE0A24"
-            android:text="Enregistrer"
+            android:text="@string/creat"
             app:cornerRadius="50dp" />
 
 

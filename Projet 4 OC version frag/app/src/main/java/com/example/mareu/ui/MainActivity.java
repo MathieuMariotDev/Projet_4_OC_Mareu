@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
-   // private List<Meeting> mMeetingList = new ArrayList<>(); //POC
+    private List<Meeting> mMeetingList = new ArrayList<>(); //POC
     public Calendar filtrer = Calendar.getInstance();
     private MeetingApiService mApiService = new DummyMeetingApiService();
     private Menu menu;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
                 menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
             case R.id.filtre_location:
-                Toast.makeText(this, "Filtre par lieu sélectionner ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Filtre par lieu sélectionner ", Toast.LENGTH_LONG).show();
                 AlerteDialogSpinner();
                 menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
     }
 
     public static void navigate(Context activity) {
+
         Intent intent = new Intent(activity, MainActivity.class); //Intent to open  AddNeighbourActivity
         ActivityCompat.startActivity(activity, intent, null); // Start of new  AddNeighbourActivity
     }
@@ -185,7 +186,11 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
         dialog.show();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mApiService.onDestroy();
+    }
 } /*public void FilterByMeetingLocation(String MeetingLocation) {
         mMeetingList = mApiService.getMeetingList();
         List<Meeting> MeetingByLocation = new ArrayList<>();

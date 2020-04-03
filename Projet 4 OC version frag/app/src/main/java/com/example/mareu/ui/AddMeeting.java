@@ -57,4 +57,10 @@ public class AddMeeting extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFragmentAddMeeting.mApiService.onDestroy();
+    }
 }

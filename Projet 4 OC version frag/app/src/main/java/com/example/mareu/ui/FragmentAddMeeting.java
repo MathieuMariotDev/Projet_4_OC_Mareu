@@ -56,7 +56,7 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     private List<String> Listemail = new ArrayList<>();
     public Calendar CalendarMeeting = Calendar.getInstance();
     public String Time;
-    private MeetingApiService mApiService = new DummyMeetingApiService();
+    public MeetingApiService mApiService = new DummyMeetingApiService();
     public Calendar CalendarEndMeeting = Calendar.getInstance();
     private int ColorMeeting;
 
@@ -185,7 +185,8 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     @OnClick(R.id.Add_email)
     void BtnAddEmail() {
         Listemail.add(Email.getText().toString());
-        Item_list_mail.setText(Listemail.toString());
+
+        Item_list_mail.setText(Listemail.toString().replace("[","").replace("]",""));
         Email.getText().clear();
     }
 

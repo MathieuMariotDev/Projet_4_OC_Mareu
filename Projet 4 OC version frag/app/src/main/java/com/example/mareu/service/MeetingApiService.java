@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MeetingApiService {
 
-    void createMeeting(Meeting meeeting);
+    void createMeeting(Meeting meeting);
 
     List<Meeting> getMeetingList();
 
@@ -17,5 +17,5 @@ public interface MeetingApiService {
 
     List<Meeting> FilterByLocation(String Location);
 
-
+    void onDestroy();
 }

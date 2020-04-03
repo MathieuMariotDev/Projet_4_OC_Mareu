@@ -42,6 +42,6 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         IconeColor.setColorFilter(meeting.getColormeeting());
         SourceInformation = "<b>" + meeting.getLocation() + " - " + dateFormat.format(meeting.getDayTimeCalendar().getTime()) + " - " + meeting.getTopic() + "</b>";
         this.Information.setText(Html.fromHtml(SourceInformation));
-        this.ListMail.setText(meeting.getList().toString());
+        this.ListMail.setText(meeting.getList().toString().replace("[","").replace("]",""));
     }
 }

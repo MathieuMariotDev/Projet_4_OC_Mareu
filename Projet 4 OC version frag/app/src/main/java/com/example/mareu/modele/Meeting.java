@@ -1,6 +1,8 @@
 package com.example.mareu.modele;
 
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Calendar;
 import java.util.List;
@@ -72,7 +74,6 @@ public class Meeting {
     public void setLocation(String location) {
         this.location = location;
     }
-
 
 }
 
