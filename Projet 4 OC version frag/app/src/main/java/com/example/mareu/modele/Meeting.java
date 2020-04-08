@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Meeting {
     private int colormeeting;
-    private String time;//the timetable meeting
     private String location;//location meeting
     private String topic;//topic meeting
     //private List<String> mList = new ArrayList<>(); // List mail

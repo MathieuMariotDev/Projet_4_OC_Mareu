@@ -1,6 +1,8 @@
 package com.example.mareu.meeting_list;
+
+import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -62,14 +64,13 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
 import android.view.WindowManager;
+import org.junit.runner.RunWith;
+
 @LargeTest
 @RunWith(AndroidJUnit4ClassRunner.class)
-public class MeetingListTest {
-
+public class Filter {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
@@ -77,6 +78,7 @@ public class MeetingListTest {
 
     @Before
     public void Setup(){
+        // Creat First Meeting
         onView(withId(R.id.BtnAddMeeting)).perform(click());
         onView(withId(R.id.subject_meeting)).perform(replaceText("Réunion A"),closeSoftKeyboard());
         onView(withId(R.id.participants_email)).perform(replaceText("math.mariot@gmail.com"),closeSoftKeyboard());
@@ -87,23 +89,60 @@ public class MeetingListTest {
         onView(withClassName(equalTo(TimePicker.class.getName())))
                 .perform(PickerActions.setTime(8,30));
         onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.BtnDatePicker)).perform(click());
+        onView(withClassName(equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020,4,02));
+
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.create)).perform(click());
+        //Creat Second Meeting
+        onView(withId(R.id.BtnAddMeeting)).perform(click());
+        onView(withId(R.id.spinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)),is("Réunion 3"))).perform(click());
+        onView(withId(R.id.subject_meeting)).perform(replaceText("Réunion PEACH"),closeSoftKeyboard());
+        onView(withId(R.id.participants_email)).perform(replaceText("math.mariot@gmail.com"),closeSoftKeyboard());
+        onView(withId(R.id.Add_email)).perform(click());
+        onView(withId(R.id.participants_email)).perform(replaceText("jeanpaul@gmail.com"),closeSoftKeyboard());
+        onView(withId(R.id.Add_email)).perform(click());
+        onView(withId(R.id.BtnTimePickersStart)).perform(click());
+        onView(withClassName(equalTo(TimePicker.class.getName())))
+                .perform(PickerActions.setTime(8,30));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.BtnDatePicker)).perform(click());
+        onView(withClassName(equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020,4,03));
+
+        onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.create)).perform(click());
     }
+
+
     @Test
-    public void CreateMeeting() { //Create and display correct meeting
-            onView(withId(R.id.item_list)).check(matches(withText("Réunion 1 - 08:30 - Réunion A")));
-            onView(withId(R.id.item_list_mail)).check(matches(withText("math.mariot@gmail.com, jeanpaul@gmail.com")));
+    public void FilterByDate(){
+        ///////////////////////////Filter by date ////////
+        onView(withContentDescription("More options")).perform(click());
+        onView(allOf(withId(R.id.title),withText("Filtre par date"))).perform(click());
+        onView(withClassName(equalTo(DatePicker.class.getName())))
+                .perform(PickerActions.setDate(2020,4,03));  ///Filter by date
+        onView(withId(android.R.id.button1)).perform(click());
+        /////////////////////////////////Looking if juste 1meeting is display ///
+        onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(1)); //check if recylcler view only display 1meeting
+        onView(withId(R.id.item_list)).check(matches(not(withText("Réunion 1 - 08:30 - Réunion A"))));
+        onView(withId(R.id.item_list)).check(matches(withText("Réunion 3 - 08:30 - Réunion PEACH")));//check if good meeting is display
     }
 
-@Test
-    public void DestoyListOnRotation(){
-        mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(0));
-}
-
-@Test
-    public void DeleteOnClick(){
-        onView(withId(R.id.item_list_delete)).perform(click());
-    onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(0));
-}
+    @Test
+    public void FilterByLocation(){
+        onView(withContentDescription("More options")).perform(click());
+        onView(allOf(withId(R.id.title),withText("Filtre par lieu"))).perform(click());
+        onView(withId(R.id.spinner_dialog)).perform(click());
+        onData(allOf(is(instanceOf(String.class)),
+                is("Réunion 3")))
+                .inRoot(isPlatformPopup())
+                .perform(click());
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(1)); //check if recylcler view only display 1meeting
+        onView(withId(R.id.item_list)).check(matches(not(withText("Réunion 1 - 08:30 - Réunion A"))));
+        onView(withId(R.id.item_list)).check(matches(withText("Réunion 3 - 08:30 - Réunion PEACH"))); //check if good meeting is display
+    }
 }

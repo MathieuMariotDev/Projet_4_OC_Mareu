@@ -48,6 +48,27 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
+    public boolean LockedTime(Calendar CalendarMeeting, Calendar CalendarEndMeeting,String Location) {
+    boolean autorizedCreation=true;
+        for (Meeting meeting : mMeetingList) {
+
+            if (((CalendarEndMeeting.get(Calendar.YEAR) == meeting.getDayTimeEndCalendar().get(Calendar.YEAR) && CalendarEndMeeting.get(Calendar.MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.MONTH) && CalendarEndMeeting.get(Calendar.DAY_OF_MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.DAY_OF_MONTH))) && meeting.getLocation().equals(Location)) {
+
+
+                if (!((CalendarMeeting.before(meeting.getDayTimeCalendar()) || CalendarMeeting.after(meeting.getDayTimeEndCalendar())) && (CalendarEndMeeting.before(meeting.getDayTimeCalendar()) || CalendarEndMeeting.after(meeting.getDayTimeEndCalendar())))) {
+                    autorizedCreation=false;
+                }
+
+
+            }
+            else {
+                autorizedCreation=true;
+            }
+        }
+        return autorizedCreation;
+    }
+
+    @Override
     public void onDestroy() {
         mMeetingList.clear();
     }

@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
-    private List<Meeting> mMeetingList = new ArrayList<>(); //POC
     public Calendar filtrer = Calendar.getInstance();
     private MeetingApiService mApiService = new DummyMeetingApiService();
     private Menu menu;
@@ -181,6 +181,8 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
                 dialog.dismiss();
             }
         });
+
+
         mBuilder.setView(mView);
         AlertDialog dialog = mBuilder.create();
         dialog.show();

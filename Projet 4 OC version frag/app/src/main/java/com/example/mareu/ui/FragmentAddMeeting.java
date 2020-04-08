@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,12 @@ import com.example.mareu.modele.Meeting;
 import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.MeetingApiService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -53,12 +57,19 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     EditText Email;
     @BindView(R.id.Email_List)
     TextView Item_list_mail;
+    @BindView(R.id.TimeStartDisplay)
+    TextView timeStartDisplay;
+    @BindView(R.id.TimeEndDisplay)
+    TextView timeEndDisplay;
+    @BindView(R.id.DateMeetingDisplay)
+    TextView dateMeetingDisplay;
     private List<String> Listemail = new ArrayList<>();
     public Calendar CalendarMeeting = Calendar.getInstance();
     public String Time;
     public MeetingApiService mApiService = new DummyMeetingApiService();
     public Calendar CalendarEndMeeting = Calendar.getInstance();
     private int ColorMeeting;
+    Boolean Createauthorization;
 
     public FragmentAddMeeting() {
         // Required empty public constructor
@@ -92,16 +103,23 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     @OnClick(R.id.create)
     void AddMeeting() {
         Log.d("Debug", "AddMeetingFragment: " + CalendarMeeting);
-        Meeting meeting = new Meeting(
-                randomColor(),
-                CalendarMeeting,
-                CalendarEndMeeting,
-                Location,
-                Subject.getEditableText().toString(),
-                Listemail
-        );
-        mApiService.createMeeting(meeting);
-        MainActivity.navigate(getContext());
+        Createauthorization = mApiService.LockedTime(CalendarMeeting, CalendarEndMeeting, Location);
+        if (Createauthorization) {
+
+
+            Meeting meeting = new Meeting(
+                    randomColor(),
+                    CalendarMeeting,
+                    CalendarEndMeeting,
+                    Location,
+                    Subject.getEditableText().toString(),
+                    Listemail
+            );
+            mApiService.createMeeting(meeting);
+            MainActivity.navigate(getContext());
+        } else {
+            ErrorLockedTime();
+        }
     }
 
     @OnClick(R.id.BtnTimePickersStart)
@@ -139,6 +157,11 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             CalendarMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
             CalendarMeeting.set(Calendar.MINUTE, minute);
+            //String SourceInformation;
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+            //SourceInformation = "<b>" + R.string.TimeStartTextView + " : " + dateFormat.format(CalendarMeeting.getTime());
+            //timeStartDisplay.setText(Html.fromHtml(SourceInformation));
+            timeStartDisplay.append(dateFormat.format(CalendarMeeting.getTime()));
 
         }
     };
@@ -148,45 +171,26 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             CalendarEndMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
             CalendarEndMeeting.set(Calendar.MINUTE, minute);
-            lockedTime();
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+            // lockedTime();
+            timeEndDisplay.append(dateFormat.format(CalendarEndMeeting.getTime()));
         }
     };
 
-
-    public void lockedTime() {
-        List<Meeting> meetings = mApiService.getMeetingList();
-        for (Meeting meeting : meetings) {
-
-            if (((CalendarEndMeeting.get(Calendar.YEAR) == meeting.getDayTimeEndCalendar().get(Calendar.YEAR) && CalendarEndMeeting.get(Calendar.MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.MONTH) && CalendarEndMeeting.get(Calendar.DAY_OF_MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.DAY_OF_MONTH))) && meeting.getLocation().equals(Location)) {
-
-
-                if (!((CalendarMeeting.before(meeting.getDayTimeCalendar()) || CalendarMeeting.after(meeting.getDayTimeEndCalendar())) && (CalendarEndMeeting.before(meeting.getDayTimeCalendar()) || CalendarEndMeeting.after(meeting.getDayTimeEndCalendar())))) {
-                    //Toast.makeText(getActivity(), "Votre réunion empiète sur une autre.Veuillez de nouveau saisir une autre heure ou sélectionner une autre salle", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder ErrorMsg = new AlertDialog.Builder(getActivity());
-                    ErrorMsg.setMessage("Votre réunion est sur un créneaux déjà réservé veuillez sélectionner une autre salle ou décaller la réunion en sélectionnant une heure de début et de fin valide")
-                            .setTitle("Problème pour placer la réunion");
-                    ErrorMsg.create();
-                    ErrorMsg.show();
-
-                }
-            }
-            Toast.makeText(getActivity(), "Votre réunion est correctement placé.Vous pouvez valider", Toast.LENGTH_LONG).show();
-        }
+    public void ErrorLockedTime() {
+        AlertDialog.Builder ErrorMsg = new AlertDialog.Builder(getActivity());
+        ErrorMsg.setMessage("Votre réunion est sur un créneaux déjà réservé veuillez sélectionner une autre salle ou décaller la réunion en sélectionnant une heure de début et de fin valide")
+                .setTitle("Problème pour placer la réunion");
+        ErrorMsg.create();
+        ErrorMsg.show();
     }
 
-
-
-   /* @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        CalendarMeeting.set(year, month, dayOfMonth);
-        Log.d("Debug", "onDateSet: " + CalendarMeeting);
-    }*/
 
     @OnClick(R.id.Add_email)
     void BtnAddEmail() {
         Listemail.add(Email.getText().toString());
 
-        Item_list_mail.setText(Listemail.toString().replace("[","").replace("]",""));
+        Item_list_mail.setText(Listemail.toString().replace("[", "").replace("]", ""));
         Email.getText().clear();
     }
 
@@ -209,14 +213,16 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
 
             CalendarMeeting.set(year, monthOfYear, dayOfMonth);
             CalendarEndMeeting.set(year, monthOfYear, dayOfMonth);
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+            dateMeetingDisplay.append(dateFormat.format(CalendarEndMeeting.getTime()));
             Log.d("Debug", "onDateSetTest/////: " + CalendarMeeting);
         }
     };
 
-    public int randomColor(){
-        Random random= new Random();
+    public int randomColor() {
+        Random random = new Random();
 
-        return ColorMeeting=Color.argb(255, random.nextInt(256), random.nextInt(256),
+        return ColorMeeting = Color.argb(255, random.nextInt(256), random.nextInt(256),
                 random.nextInt(256));
     }
 }

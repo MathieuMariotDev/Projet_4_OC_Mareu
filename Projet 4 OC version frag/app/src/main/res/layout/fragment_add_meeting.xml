@@ -75,14 +75,13 @@
             android:backgroundTint="@color/colorPrimary"
 
             android:text="@string/SelectTimeMeeting" />
-
-        <Button
-            android:id="@+id/BtnDatePicker"
+        <TextView
+            android:id="@+id/TimeStartDisplay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/SelectDateMeeting" />
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/TimeStartTextView"
+            />
 
         <Button
             android:id="@+id/BtnTimePickersEnd"
@@ -91,7 +90,26 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/SelectEndTimeMeeting" />
-
+        <TextView
+            android:id="@+id/TimeEndDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/TimeEndTextView"
+            />
+        <Button
+            android:id="@+id/BtnDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/SelectDateMeeting" />
+        <TextView
+            android:id="@+id/DateMeetingDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/DateStartTextView" />
         <Button
             android:id="@+id/create"
             android:layout_width="wrap_content"
