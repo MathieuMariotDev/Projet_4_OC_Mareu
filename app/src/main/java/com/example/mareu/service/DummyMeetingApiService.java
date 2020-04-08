@@ -1,25 +1,14 @@
 package com.example.mareu.service;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.example.mareu.modele.Meeting;
-import com.example.mareu.ui.FragmentListMeeting;
-import com.example.mareu.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private  static List<Meeting> mMeetingList = new ArrayList<>();
+    private static List<Meeting> mMeetingList = new ArrayList<>();
 
 
     @Override
@@ -56,6 +45,32 @@ public class DummyMeetingApiService implements MeetingApiService {
         }
 
         return MeetingByLocation;
+    }
+
+    @Override
+    public boolean LockedTime(Calendar CalendarMeeting, Calendar CalendarEndMeeting,String Location) {
+    boolean autorizedCreation=true;
+        for (Meeting meeting : mMeetingList) {
+
+            if (((CalendarEndMeeting.get(Calendar.YEAR) == meeting.getDayTimeEndCalendar().get(Calendar.YEAR) && CalendarEndMeeting.get(Calendar.MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.MONTH) && CalendarEndMeeting.get(Calendar.DAY_OF_MONTH) == meeting.getDayTimeEndCalendar().get(Calendar.DAY_OF_MONTH))) && meeting.getLocation().equals(Location)) {
+
+
+                if (!((CalendarMeeting.before(meeting.getDayTimeCalendar()) || CalendarMeeting.after(meeting.getDayTimeEndCalendar())) && (CalendarEndMeeting.before(meeting.getDayTimeCalendar()) || CalendarEndMeeting.after(meeting.getDayTimeEndCalendar())))) {
+                    autorizedCreation=false;
+                }
+
+
+            }
+            else {
+                autorizedCreation=true;
+            }
+        }
+        return autorizedCreation;
+    }
+
+    @Override
+    public void onDestroy() {
+        mMeetingList.clear();
     }
 
 }

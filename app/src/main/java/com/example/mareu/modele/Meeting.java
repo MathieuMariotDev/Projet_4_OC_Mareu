@@ -7,9 +7,8 @@ import android.os.Parcelable;
 import java.util.Calendar;
 import java.util.List;
 
-public class Meeting /*implements Parcelable */{
+public class Meeting {
     private int colormeeting;
-    private String time;//the timetable meeting
     private String location;//location meeting
     private String topic;//topic meeting
     //private List<String> mList = new ArrayList<>(); // List mail
@@ -25,11 +24,6 @@ public class Meeting /*implements Parcelable */{
         this.topic = topic;
         this.ListEmail = ListEmail;
     }
-    /*@Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeInt(colormeeting);
-        parcel.write
-    }*/
 
     public int getColormeeting() {
         return colormeeting;

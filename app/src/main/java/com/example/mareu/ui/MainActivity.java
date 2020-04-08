@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
 
     private FragmentListMeeting mFragmentListMeeting;
     private FragmentAddMeeting mFragmentAddMeeting;
-    private List<Meeting> mMeetingList = new ArrayList<>(); //POC
     public Calendar filtrer = Calendar.getInstance();
     private MeetingApiService mApiService = new DummyMeetingApiService();
     private Menu menu;
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
                 menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
             case R.id.filtre_location:
-                Toast.makeText(this, "Filtre par lieu sélectionner ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "Filtre par lieu sélectionner ", Toast.LENGTH_LONG).show();
                 AlerteDialogSpinner();
                 menu.findItem(R.id.list_meeting).setVisible(true);
                 return true;
@@ -181,12 +181,18 @@ public class MainActivity extends AppCompatActivity /*implements DatePickerDialo
                 dialog.dismiss();
             }
         });
+
+
         mBuilder.setView(mView);
         AlertDialog dialog = mBuilder.create();
         dialog.show();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mApiService.onDestroy();
+    }
 } /*public void FilterByMeetingLocation(String MeetingLocation) {
         mMeetingList = mApiService.getMeetingList();
         List<Meeting> MeetingByLocation = new ArrayList<>();

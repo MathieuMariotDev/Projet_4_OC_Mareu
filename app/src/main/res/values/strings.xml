@@ -13,6 +13,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="addemail">Ajoute l\'email</string>
+    <string name="MailParticipant">Email du participant</string>
+    <string name="Subject_meeting">Sujet de la réunion</string>
+    <string name="SelectTimeMeeting">Sélectionner l\'heure de la réunion</string>
+    <string name="SelectDateMeeting">Sélectionner la date de la réunion</string>
+    <string name="SelectEndTimeMeeting">Sélectionner l\'heure de fin de la réunion</string>
+    <string name="creat">Enregistrer</string>
+    <string name="Listmeeting">Afficher la liste des réunions</string>
+    <string name="filterlocation">Filtre par lieu</string>
+    <string name="filterdate">Filtre par date</string>
+    <string name="TimeStartTextView">L\'heure de début :</string>
+    <string name="TimeEndTextView">L\'heure de Fin :</string>
+    <string name="DateStartTextView">La date de la réunion :</string>
     <string-array name="meeting_location">
         <item>Réunion 1</item>
         <item>Réunion 2</item>

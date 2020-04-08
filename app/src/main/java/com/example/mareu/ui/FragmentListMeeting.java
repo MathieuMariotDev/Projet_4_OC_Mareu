@@ -103,4 +103,6 @@ public class FragmentListMeeting extends Fragment {
         mApiService.DeleteMeeting(event.meeting);
         initList();
     }
+
+
 }

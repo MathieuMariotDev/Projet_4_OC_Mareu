@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Sujet de la réunion">
+            android:hint="@string/Subject_meeting">
 
         </EditText>
 
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Email du participant"
+            android:hint="@string/MailParticipant"
             android:inputType="textEmailAddress" />
 
         <Button
@@ -57,7 +57,7 @@
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Ajoute l'email"
+            android:text="@string/addemail"
             android:textSize="15sp"
             app:cornerRadius="30dp" />
 
@@ -74,15 +74,14 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
 
-            android:text="Sélectionner l'heure de la réunion" />
-
-        <Button
-            android:id="@+id/BtnDatePicker"
+            android:text="@string/SelectTimeMeeting" />
+        <TextView
+            android:id="@+id/TimeStartDisplay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Sélectionner la date de la réunion" />
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/TimeStartTextView"
+            />
 
         <Button
             android:id="@+id/BtnTimePickersEnd"
@@ -90,8 +89,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Sélectionner l'heure de fin de la réunion" />
-
+            android:text="@string/SelectEndTimeMeeting" />
+        <TextView
+            android:id="@+id/TimeEndDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/TimeEndTextView"
+            />
+        <Button
+            android:id="@+id/BtnDatePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/SelectDateMeeting" />
+        <TextView
+            android:id="@+id/DateMeetingDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:text="@string/DateStartTextView" />
         <Button
             android:id="@+id/create"
             android:layout_width="wrap_content"
@@ -100,7 +118,7 @@
             android:layout_margin="20dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#CE0A24"
-            android:text="Enregistrer"
+            android:text="@string/creat"
             app:cornerRadius="50dp" />
 
 
