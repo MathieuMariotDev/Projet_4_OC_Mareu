@@ -42,15 +42,23 @@
             android:hint="@string/Subject_meeting">
 
         </EditText>
-
-        <EditText
-            android:id="@+id/participants_email"
-            android:layout_width="300dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_email"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="@string/MailParticipant"
-            android:inputType="textEmailAddress" />
+            app:errorEnabled="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="20">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/participants_email"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:textSize="20sp"
+                android:ems="10"
+                android:hint="@string/MailParticipant"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/Add_email"
@@ -65,7 +73,8 @@
             android:id="@+id/Email_List"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="12sp" />
+            android:textSize="20sp"
+            />
 
         <Button
             android:id="@+id/BtnTimePickersStart"

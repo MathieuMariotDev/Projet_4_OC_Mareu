@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/frame_layout_list_meeting"
-        android:layout_weight="60"
+        android:layout_weight="50"
         android:layout_width="0px"
         android:layout_height="match_parent">
         <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
         android:id="@+id/frame_layout_add_meeting"
         android:layout_height="match_parent"
         android:layout_width="0px"
-        android:layout_weight="40"></FrameLayout>
+        android:layout_weight="50"></FrameLayout>
 </LinearLayout>
 
 
