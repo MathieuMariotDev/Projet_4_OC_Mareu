@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.FragmentAddMeeting"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbaradd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margin_top_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbaradd"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:textSize="@dimen/size_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top">
+
+        </Spinner>
+
+        <EditText
+            android:id="@+id/subject_meeting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_text"
+            android:layout_marginTop="@dimen/margin_top"
+            android:hint="@string/Subject_meeting">
+
+        </EditText>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="20">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/participants_email"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top"
+                android:textSize="@dimen/size_text"
+                android:ems="10"
+                android:hint="@string/MailParticipant"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/Add_email"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/addemail"
+            android:textSize="@dimen/size_text"
+            app:cornerRadius="30dp" />
+
+        <TextView
+            android:id="@+id/Email_List"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="@dimen/size_text"
+            />
+
+        <Button
+            android:id="@+id/BtnTimePickersStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:backgroundTint="@color/colorPrimary"
+            android:textSize="@dimen/size_text"
+            android:text="@string/SelectTimeMeeting" />
+        <TextView
+            android:id="@+id/TimeStartDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="@dimen/size_text"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/TimeStartTextView"
+            />
+
+        <Button
+            android:id="@+id/BtnTimePickersEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_text"
+            android:layout_marginTop="@dimen/margin_top"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/SelectEndTimeMeeting" />
+        <TextView
+            android:id="@+id/TimeEndDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="@dimen/size_text"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/TimeEndTextView"
+            />
+        <Button
+            android:id="@+id/BtnDatePicker"
+            android:textSize="25sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/SelectDateMeeting" />
+        <TextView
+            android:id="@+id/DateMeetingDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:textSize="@dimen/size_text"
+            android:text="@string/DateStartTextView" />
+        <Button
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:textSize="@dimen/size_text"
+            android:layout_marginTop="@dimen/margin_top"
+            android:backgroundTint="#CE0A24"
+            android:text="@string/creat"
+            app:cornerRadius="50dp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
