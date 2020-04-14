@@ -10,8 +10,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayoutCompat"
@@ -151,9 +150,9 @@
                 android:id="@+id/BtnDatePicker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/SelectDateMeetingSmall"
-                android:layout_marginTop="@dimen/margin_top"
                 android:textSize="@dimen/size_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/BtnTimePickersEnd" />
@@ -162,9 +161,9 @@
                 android:id="@+id/create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top"
                 android:backgroundTint="#CE0A24"
                 android:text="@string/creat"
-                android:layout_marginTop="@dimen/margin_top"
                 android:textSize="@dimen/size_text"
                 app:cornerRadius="50dp"
                 app:layout_constraintEnd_toEndOf="parent"

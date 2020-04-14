@@ -50,7 +50,7 @@ import butterknife.OnClick;
  * Use the {@link FragmentAddMeeting#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.OnTimeSetListener/*, DatePickerDialog.OnDateSetListener,*/ AdapterView.OnItemSelectedListener {
+public class FragmentAddMeeting extends Fragment implements  AdapterView.OnItemSelectedListener {
     @BindView(R.id.spinner)
     Spinner LocationMeeting;
     private String Location;
@@ -68,7 +68,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     TextView dateMeetingDisplay;
     private List<String> Listemail = new ArrayList<>();
     public Calendar CalendarMeeting = Calendar.getInstance();
-    public String Time;
     public MeetingApiService mApiService = new DummyMeetingApiService();
     public Calendar CalendarEndMeeting = Calendar.getInstance();
     private int ColorMeeting;

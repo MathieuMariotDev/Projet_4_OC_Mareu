@@ -103,6 +103,7 @@ public class FragmentListMeeting extends Fragment {
     public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.DeleteMeeting(event.meeting);
         initList();
+        //mAdapter.notifyItemRemoved();
     }
 
 
