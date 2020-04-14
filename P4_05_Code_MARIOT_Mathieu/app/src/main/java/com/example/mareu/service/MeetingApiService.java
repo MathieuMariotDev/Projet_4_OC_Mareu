@@ -17,7 +17,7 @@ public interface MeetingApiService {
 
     List<Meeting> FilterByLocation(String Location);
 
-    boolean LockedTime(Calendar CalendarMeeting, Calendar CalendarEndMeeting,String Location);
+    boolean LockedTime(Calendar CalendarMeeting, Calendar CalendarEndMeeting, String Location);
 
     void onDestroy();
 }

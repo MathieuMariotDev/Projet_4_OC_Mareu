@@ -34,12 +34,12 @@ import butterknife.OnClick;
  */
 public class FragmentListMeeting extends Fragment {
 
-    //RecyclerView mRecyclerView;
+
     @BindView(R.id.recycler_view_main)
     public RecyclerView mRecyclerView;
     public ListMeetingAdapter mAdapter;
     public List<Meeting> mMeetingList;
-    private MeetingApiService mApiService= new DummyMeetingApiService();
+    private MeetingApiService mApiService = new DummyMeetingApiService();
 
     public FragmentListMeeting() {
         // Required empty public constructor
@@ -70,12 +70,13 @@ public class FragmentListMeeting extends Fragment {
 
     private void configureRecylerView() {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mMeetingList=mApiService.getMeetingList();
+        mMeetingList = mApiService.getMeetingList();
         this.mAdapter = new ListMeetingAdapter(this.mMeetingList);
         this.mRecyclerView.setAdapter(mAdapter);
     }
-    private void initList(){
-        mMeetingList=mApiService.getMeetingList();
+
+    private void initList() {
+        mMeetingList = mApiService.getMeetingList();
         this.mAdapter = new ListMeetingAdapter(this.mMeetingList);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -99,7 +100,7 @@ public class FragmentListMeeting extends Fragment {
     }
 
     @Subscribe
-    public void onDeleteMeeting(DeleteMeetingEvent event){
+    public void onDeleteMeeting(DeleteMeetingEvent event) {
         mApiService.DeleteMeeting(event.meeting);
         initList();
     }

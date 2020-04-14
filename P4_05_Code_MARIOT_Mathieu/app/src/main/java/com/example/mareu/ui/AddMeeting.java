@@ -45,7 +45,6 @@ public class AddMeeting extends AppCompatActivity {
     }
 
 
-
     private void configureAndShowAddFragment() {
         mFragmentAddMeeting = (FragmentAddMeeting) getSupportFragmentManager().findFragmentById(R.id.frame_layout_add_meeting);
 

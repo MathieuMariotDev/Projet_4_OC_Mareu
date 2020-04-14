@@ -1,4 +1,5 @@
 package com.example.mareu.meeting_list;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.View;
@@ -65,7 +66,9 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.isEmptyString;
 import static org.hamcrest.Matchers.not;
+
 import android.view.WindowManager;
+
 @LargeTest
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class MeetingListTest {
@@ -76,34 +79,35 @@ public class MeetingListTest {
 
 
     @Before
-    public void Setup(){
+    public void Setup() {
         onView(withId(R.id.BtnAddMeeting)).perform(click());
-        onView(withId(R.id.subject_meeting)).perform(replaceText("Réunion A"),closeSoftKeyboard());
-        onView(withId(R.id.participants_email)).perform(replaceText("math.mariot@gmail.com"),closeSoftKeyboard());
+        onView(withId(R.id.subject_meeting)).perform(replaceText("Réunion A"), closeSoftKeyboard());
+        onView(withId(R.id.participants_email)).perform(replaceText("math.mariot@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.Add_email)).perform(click());
-        onView(withId(R.id.participants_email)).perform(replaceText("jeanpaul@gmail.com"),closeSoftKeyboard());
+        onView(withId(R.id.participants_email)).perform(replaceText("jeanpaul@gmail.com"), closeSoftKeyboard());
         onView(withId(R.id.Add_email)).perform(click());
         onView(withId(R.id.BtnTimePickersStart)).perform(click());
         onView(withClassName(equalTo(TimePicker.class.getName())))
-                .perform(PickerActions.setTime(8,30));
+                .perform(PickerActions.setTime(8, 30));
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.create)).perform(click());
     }
+
     @Test
     public void CreateMeeting() { //Create and display correct meeting
-            onView(withId(R.id.item_list)).check(matches(withText("Réunion 1 - 08:30 - Réunion A")));
-            onView(withId(R.id.item_list_mail)).check(matches(withText("math.mariot@gmail.com, jeanpaul@gmail.com")));
+        onView(withId(R.id.item_list)).check(matches(withText("Réunion 1 - 08:30 - Réunion A")));
+        onView(withId(R.id.item_list_mail)).check(matches(withText("math.mariot@gmail.com, jeanpaul@gmail.com")));
     }
 
-@Test
-    public void DestoyListOnRotation(){
+    @Test
+    public void DestoyListOnRotation() {
         mActivityTestRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(0));
-}
+    }
 
-@Test
-    public void DeleteOnClick(){
+    @Test
+    public void DeleteOnClick() {
         onView(withId(R.id.item_list_delete)).perform(click());
-    onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(0));
-}
+        onView(withId(R.id.recycler_view_main)).check(new RecyclerViewItemCountAssertion(0));
+    }
 }

@@ -127,8 +127,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
 
     @OnClick(R.id.BtnTimePickersStart)
     void OpenTimePicker(View v) {
-        //DialogFragment timePickerFragment = new TimePickerFragment();
-        // timePickerFragment.show(getChildFragmentManager(), "timePickerDebut");
         TimePickerFragment timePickerDialog = new TimePickerFragment().newIntance();
         timePickerDialog.setCallBack(onTimeStart);
         timePickerDialog.show(getParentFragmentManager().beginTransaction(), "TimePickerStart");
@@ -150,10 +148,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
         datePickerFragment.show(getParentFragmentManager().beginTransaction(), "DatePickerFragment");
     }
 
-   /* @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-    }*/
 
     TimePickerDialog.OnTimeSetListener onTimeStart = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -165,7 +159,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
             TimeStartString = getString(R.string.TimeStartTextView) + dateFormat.format(CalendarMeeting.getTime());
             timeStartDisplay.setText(TimeStartString);
 
-            //timeStartDisplay.setText(Html.fromHtml(SourceInformation));;
 
         }
     };
@@ -178,7 +171,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
             DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
             String TimeEndString;
             TimeEndString = getString(R.string.TimeEndTextView) + dateFormat.format(CalendarEndMeeting.getTime());
-            // lockedTime();
             timeEndDisplay.setText(TimeEndString);
         }
     };
