@@ -1,0 +1,9 @@
+﻿Bonjour , 
+
+
+Le choix du langage java plutôt que kotlin est motivé par “l’urgence” de ne plus perdre un temps considérable dans la recherche et la gestion des réunions.
+En effet Kotlin étant un langage moins verbeux il permettrait en théorie de coder plus rapidement cependant l’équipe n’est pas formée encore sur ce langage sa engendreraient donc quelques retards de production .
+De plus le langage Java fort d’une très grande communauté de développeurs permet une entraide , un partage ainsi que la réutilisation de code déjà existant ce qui permettrait de déployer au sein de l’entreprise l’application         Ma réu le plus rapidement possible.
+
+
+Cordialement
