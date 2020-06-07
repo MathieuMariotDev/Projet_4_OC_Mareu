@@ -22,9 +22,13 @@ Au clic sur le bouton d'ajout un écran avec:
 <img src="./screenshots/mainScreen.jpg" width="30%" height="30%">&ensp;<img src="./screenshots/addScreen.jpg" width="30%" height="30%">
 <img src="./screenshots/email.jpg" width="30%" height="30%">
 
-## Add & delete favorites
+## Filtre par date & lieu
 
 <img src="./screenshots/filtreParDate.gif" width="30%" height="30%">&ensp;<img src="./screenshots/filtreParLieu.gif" width="30%" height="30%">
+
+## Tablet display:
+
+<img src="./screenshots/Tablette.jpg" width="50%" height="50%">
 
 ### App Architecture
 
