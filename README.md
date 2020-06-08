@@ -17,6 +17,8 @@ Au clic sur le bouton d'ajout un écran avec:
 * Le code ne permetant pas de créer une réunion dans la même salle et sur le créneaux horraire d'une autre.
 * Le champ email utilise un Pattern "EMAIL_ADDRESS" pour éviter les erreurs coté utilisateur.
 
+L'ensemble des tests unitaires et instrumentalisés ont été réalisés .
+
 ## Phone display
 
 <img src="./screenshots/mainScreen.jpg" width="30%" height="30%">&ensp;<img src="./screenshots/addScreen.jpg" width="30%" height="30%">
