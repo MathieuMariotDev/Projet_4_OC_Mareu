@@ -13,7 +13,7 @@ Les fonctionnalités développées :
 
 Au clic sur le bouton d'ajout un écran avec:
 
-* Tous le nécessaire pour créer une réunion voire screen si-dessous.
+* Tout le nécessaire pour créer une réunion voire screen si-dessous.
 * Le code ne permettant pas de créer une réunion dans la même salle et sur le créneau horaire d'une autre.
 * Le champ email utilise un Pattern "EMAIL_ADDRESS" pour éviter les erreurs côté utilisateur.
 
