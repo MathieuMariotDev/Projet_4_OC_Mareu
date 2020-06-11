@@ -1,10 +1,10 @@
 # Maréu Application du projet 4 OpenClassrooms
 --------------------
 
-Cette Application réalisé à partir d'un projet vierge est un POC(proof of concept) la persistance des données n'est donc pas géré.
-L'objectif était a terme une meilleur gestion des réunions dans "L'entreprise".
+Cette application réalisée à partir d'un projet vierge est un POC(Proof of concept) la persistance des données n'est donc pas gérée. 
+L'objectif était à terme une meilleure gestion des réunions dans "L'entreprise".
 
-Les fonctionnalités développé :
+Les fonctionnalités développées :
 
 * L'écran principal qui affiche la liste des réunions.
 * Un filtre par date.
@@ -14,8 +14,8 @@ Les fonctionnalités développé :
 Au clic sur le bouton d'ajout un écran avec:
 
 * Tous le nécessaire pour créer une réunion voire screen si-dessous.
-* Le code ne permetant pas de créer une réunion dans la même salle et sur le créneaux horraire d'une autre.
-* Le champ email utilise un Pattern "EMAIL_ADDRESS" pour éviter les erreurs coté utilisateur.
+* Le code ne permettant pas de créer une réunion dans la même salle et sur le créneau horaire d'une autre.
+* Le champ email utilise un Pattern "EMAIL_ADDRESS" pour éviter les erreurs côté utilisateur.
 
 L'ensemble des tests unitaires et instrumentalisés ont été réalisés .
 
