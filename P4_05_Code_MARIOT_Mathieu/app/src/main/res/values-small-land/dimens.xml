@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="margin_top">1dp</dimen>
+    <dimen name="size_layouttxt_width">230dp</dimen>
+    <dimen name="size_layouttxt_height">45dp</dimen>
+    <dimen name="size_btnAddEmail_width">16dp</dimen>
+    <dimen name="size_btnAddEmail_height">16dp</dimen>
+    <dimen name="size_text">8sp</dimen>
+    <dimen name="margin_top_toolbar">30dp</dimen>
+</resources>
