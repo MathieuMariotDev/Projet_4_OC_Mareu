@@ -10,8 +10,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.PatternMatcher;
 import android.text.Html;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,8 @@ import com.example.mareu.R;
 import com.example.mareu.modele.Meeting;
 import com.example.mareu.service.DummyMeetingApiService;
 import com.example.mareu.service.MeetingApiService;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,15 +50,14 @@ import butterknife.OnClick;
  * Use the {@link FragmentAddMeeting#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.OnTimeSetListener/*, DatePickerDialog.OnDateSetListener,*/ AdapterView.OnItemSelectedListener {
-
+public class FragmentAddMeeting extends Fragment implements  AdapterView.OnItemSelectedListener {
     @BindView(R.id.spinner)
     Spinner LocationMeeting;
     private String Location;
     @BindView(R.id.subject_meeting)
     EditText Subject;
-    @BindView(R.id.participants_email)
-    EditText Email;
+    @BindView(R.id.text_input_email)
+    TextInputLayout Email;
     @BindView(R.id.Email_List)
     TextView Item_list_mail;
     @BindView(R.id.TimeStartDisplay)
@@ -65,7 +68,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
     TextView dateMeetingDisplay;
     private List<String> Listemail = new ArrayList<>();
     public Calendar CalendarMeeting = Calendar.getInstance();
-    public String Time;
     public MeetingApiService mApiService = new DummyMeetingApiService();
     public Calendar CalendarEndMeeting = Calendar.getInstance();
     private int ColorMeeting;
@@ -124,8 +126,6 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
 
     @OnClick(R.id.BtnTimePickersStart)
     void OpenTimePicker(View v) {
-        //DialogFragment timePickerFragment = new TimePickerFragment();
-        // timePickerFragment.show(getChildFragmentManager(), "timePickerDebut");
         TimePickerFragment timePickerDialog = new TimePickerFragment().newIntance();
         timePickerDialog.setCallBack(onTimeStart);
         timePickerDialog.show(getParentFragmentManager().beginTransaction(), "TimePickerStart");
@@ -147,21 +147,17 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
         datePickerFragment.show(getParentFragmentManager().beginTransaction(), "DatePickerFragment");
     }
 
-   /* @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-    }*/
 
     TimePickerDialog.OnTimeSetListener onTimeStart = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             CalendarMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
             CalendarMeeting.set(Calendar.MINUTE, minute);
-            //String SourceInformation;
             DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
-            //SourceInformation = "<b>" + R.string.TimeStartTextView + " : " + dateFormat.format(CalendarMeeting.getTime());
-            //timeStartDisplay.setText(Html.fromHtml(SourceInformation));
-            timeStartDisplay.append(dateFormat.format(CalendarMeeting.getTime()));
+            String TimeStartString;
+            TimeStartString = getString(R.string.TimeStartTextView) + dateFormat.format(CalendarMeeting.getTime());
+            timeStartDisplay.setText(TimeStartString);
+
 
         }
     };
@@ -172,8 +168,9 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
             CalendarEndMeeting.set(Calendar.HOUR_OF_DAY, hourOfDay);
             CalendarEndMeeting.set(Calendar.MINUTE, minute);
             DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
-            // lockedTime();
-            timeEndDisplay.append(dateFormat.format(CalendarEndMeeting.getTime()));
+            String TimeEndString;
+            TimeEndString = getString(R.string.TimeEndTextView) + dateFormat.format(CalendarEndMeeting.getTime());
+            timeEndDisplay.setText(TimeEndString);
         }
     };
 
@@ -185,20 +182,24 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
         ErrorMsg.show();
     }
 
-
     @OnClick(R.id.Add_email)
     void BtnAddEmail() {
-        Listemail.add(Email.getText().toString());
-
-        Item_list_mail.setText(Listemail.toString().replace("[", "").replace("]", ""));
-        Email.getText().clear();
+        String emailInput = Email.getEditText().getText().toString().trim();
+        if (emailInput.isEmpty()) {
+            Email.setError("Le champ est vide");
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) { //  CTRL+b for see pattern
+            Email.setError("Entrer un email valid");
+        } else {
+            Listemail.add(Email.getEditText().getText().toString().trim());//trim for remove space
+            Email.getEditText().getText().clear();
+            Item_list_mail.setText(Listemail.toString().replace("[", "").replace("]", ""));
+        }
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Location = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), Location, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -214,7 +215,9 @@ public class FragmentAddMeeting extends Fragment implements /*TimePickerDialog.O
             CalendarMeeting.set(year, monthOfYear, dayOfMonth);
             CalendarEndMeeting.set(year, monthOfYear, dayOfMonth);
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-            dateMeetingDisplay.append(dateFormat.format(CalendarEndMeeting.getTime()));
+            String DateString;
+            DateString = getString(R.string.DateStartTextView) + dateFormat.format(CalendarEndMeeting.getTime());
+            dateMeetingDisplay.setText(DateString);
             Log.d("Debug", "onDateSetTest/////: " + CalendarMeeting);
         }
     };

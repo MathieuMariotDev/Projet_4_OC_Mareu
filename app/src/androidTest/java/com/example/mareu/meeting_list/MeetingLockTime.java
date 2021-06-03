@@ -98,7 +98,7 @@ public class MeetingLockTime {
     }
 
     @Test
-    public void LockedTime(){
+    public void LockedTime() {
         onView(allOf(IsInstanceOf.<View>instanceOf(android.widget.TextView.class), withText("Problème pour placer la réunion"))).check(matches(isDisplayed()));
 
     }

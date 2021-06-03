@@ -30,15 +30,11 @@ import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment {
     private DatePickerDialog.OnDateSetListener onDateSet;
-    //private boolean isModal = false;
 
-   /* public interface DatePickerFragmentListener {
-        public void onDateSet(Calendar calendar);
-    }*/
 
     public static DatePickerFragment newIntance() {
         DatePickerFragment frag = new DatePickerFragment();
-        //frag.isModal = true;
+
         return frag;
     }
 
@@ -53,32 +49,12 @@ public class DatePickerFragment extends DialogFragment {
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), onDateSet, year, month,
                 date);
-    }//dateSetListener(DatePickerDialog.OnDateSetListener) getParentFragment()
+    }
 
 
-    /*private DatePickerDialog.OnDateSetListener dateSetListener =
-         new DatePickerDialog.OnDateSetListener() {
-     @Override
-             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                 CalendarMeeting.set(view.getYear(), view.getMonth(), view.getDayOfMonth());
-
-                 Log.d("Debug", "onDateSet: " + CalendarMeeting);
-             }
-         };
-*/
     public void setCallBack(DatePickerDialog.OnDateSetListener onDate) {
         onDateSet = onDate;
     }
 
-    /*@Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (isModal) {
-            return super.onCreateView(inflater, container, savedInstanceState);
-        } else {
-            View rootView = inflater.inflate(R.layout.fragment_add_meeting, container, false);
-            return rootView;
-        }
-    }*/
 
 }

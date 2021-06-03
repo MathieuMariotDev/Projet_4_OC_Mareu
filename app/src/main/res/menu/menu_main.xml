@@ -1,25 +1,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.mareu.ui.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/filtre_date"
-        android:orderInCategory="100"
-        android:title="@string/filterdate"
-        app:showAsAction="never"
-        />
+        android:id="@+id/Menu"
+        android:icon="@drawable/ic_filter_list_24dp"
+        android:title="@string/Menu_item"
+        app:showAsAction="ifRoom">
+        <menu>
 
-    <item
-        android:id="@+id/filtre_location"
-        android:orderInCategory="100"
-        android:title="@string/filterlocation"
-        app:showAsAction="never"
-        />
-    
-    <item
-        android:id="@+id/list_meeting"
-        android:orderInCategory="100"
-        android:title="@string/Listmeeting"
-        app:showAsAction="never"
-        />
+            <item
+                android:id="@+id/filtre_date"
+                android:orderInCategory="100"
+                android:title="@string/filterdate" />
+
+            <item
+                android:id="@+id/filtre_location"
+                android:orderInCategory="100"
+                android:title="@string/filterlocation"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/list_meeting"
+                android:orderInCategory="100"
+                android:title="@string/Listmeeting"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>

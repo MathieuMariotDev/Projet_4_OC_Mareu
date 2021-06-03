@@ -26,11 +26,13 @@ import java.util.Calendar;
  */
 public class TimePickerFragment extends DialogFragment {
     private TimePickerDialog.OnTimeSetListener onTimeSet;
+
     public static TimePickerFragment newIntance() {
         TimePickerFragment fragTime = new TimePickerFragment();
         //frag.isModal = true;
         return fragTime;
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current time as the default values for the picker
@@ -44,7 +46,7 @@ public class TimePickerFragment extends DialogFragment {
     }
 
     public void setCallBack(TimePickerDialog.OnTimeSetListener onTime) {
-        onTimeSet = onTime ;
+        onTimeSet = onTime;
     }
 
 }

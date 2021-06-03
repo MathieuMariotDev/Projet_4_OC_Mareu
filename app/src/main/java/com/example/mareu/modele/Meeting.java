@@ -11,7 +11,6 @@ public class Meeting {
     private int colormeeting;
     private String location;//location meeting
     private String topic;//topic meeting
-    //private List<String> mList = new ArrayList<>(); // List mail
     private List<String> ListEmail;
     private Calendar DayTimeEndMeeting;
     private Calendar DayTimeMeeting;

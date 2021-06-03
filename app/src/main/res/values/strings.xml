@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Mareu</string>
+    <string name="app_name">Ma réu</string>
     <string name="action_settings">Settings</string>
+    <string name="Menu_item">More options</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -13,12 +14,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="addemail">Ajoute l\'email</string>
+    <string name="addemail">Ajouter l\'email</string>
     <string name="MailParticipant">Email du participant</string>
     <string name="Subject_meeting">Sujet de la réunion</string>
     <string name="SelectTimeMeeting">Sélectionner l\'heure de la réunion</string>
     <string name="SelectDateMeeting">Sélectionner la date de la réunion</string>
     <string name="SelectEndTimeMeeting">Sélectionner l\'heure de fin de la réunion</string>
+    <string name="SelectTimeMeetingSmall">Heure de la réunion</string>
+    <string name="SelectDateMeetingSmall">Date de la réunion</string>
+    <string name="SelectEndTimeMeetingSmall">Heure de fin de la réunion</string>
     <string name="creat">Enregistrer</string>
     <string name="Listmeeting">Afficher la liste des réunions</string>
     <string name="filterlocation">Filtre par lieu</string>

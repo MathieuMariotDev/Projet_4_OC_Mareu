@@ -32,12 +32,13 @@
         android:hint="Salut les geek"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/icone_color"
-        app:layout_constraintTop_toBottomOf="@+id/item_list"/>
+        app:layout_constraintTop_toBottomOf="@+id/item_list" />
 
     <ImageButton
         android:id="@+id/item_list_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@+id/item_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_list"

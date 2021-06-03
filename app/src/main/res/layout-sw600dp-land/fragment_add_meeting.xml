@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context=".ui.FragmentAddMeeting">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,15 +27,17 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbaradd">
+            app:layout_constraintTop_toBottomOf="@+id/toolbaradd"
+            app:layout_constraintVertical_bias="0.0">
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top">
+                android:layout_marginTop="@dimen/margin_top"
+                android:textSize="@dimen/size_text">
 
             </Spinner>
 
@@ -95,6 +98,7 @@
                 android:id="@+id/TimeStartDisplay"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
+                android:layout_marginTop="@dimen/margin_top"
                 android:text="@string/TimeStartTextView"
                 android:textSize="@dimen/size_text" />
 
@@ -111,6 +115,7 @@
                 android:id="@+id/TimeEndDisplay"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
+                android:layout_marginTop="@dimen/margin_top"
                 android:text="@string/TimeEndTextView"
                 android:textSize="@dimen/size_text" />
 
@@ -121,12 +126,13 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/SelectDateMeeting"
-                android:textSize="@dimen/size_text" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/DateMeetingDisplay"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
+                android:layout_marginTop="25dp"
                 android:text="@string/DateStartTextView"
                 android:textSize="@dimen/size_text" />
 
@@ -135,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="20dp"
                 android:layout_marginTop="@dimen/margin_top"
                 android:backgroundTint="#CE0A24"
                 android:text="@string/creat"

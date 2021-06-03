@@ -40,10 +40,9 @@ public class AddMeeting extends AppCompatActivity {
     }
 
     public static void navigate(FragmentActivity activity) {
-        Intent intent = new Intent(activity, AddMeeting.class); //Intent to open  AddNeighbourActivity
-        ActivityCompat.startActivity(activity, intent, null); // Start of new  AddNeighbourActivity
+        Intent intent = new Intent(activity, AddMeeting.class);
+        ActivityCompat.startActivity(activity, intent, null);
     }
-
 
 
     private void configureAndShowAddFragment() {

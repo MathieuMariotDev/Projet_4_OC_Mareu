@@ -25,7 +25,7 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
     TextView Information;
     @BindView(R.id.item_list_mail)
     TextView ListMail;
-    //@BindView(R.id.icone_color)
+    
     @BindView(R.id.item_list_delete)
     ImageButton DeleteItem;
     @BindView(R.id.icone_color)
@@ -42,6 +42,6 @@ public class MeetingViewHolder extends RecyclerView.ViewHolder {
         IconeColor.setColorFilter(meeting.getColormeeting());
         SourceInformation = "<b>" + meeting.getLocation() + " - " + dateFormat.format(meeting.getDayTimeCalendar().getTime()) + " - " + meeting.getTopic() + "</b>";
         this.Information.setText(Html.fromHtml(SourceInformation));
-        this.ListMail.setText(meeting.getList().toString().replace("[","").replace("]",""));
+        this.ListMail.setText(meeting.getList().toString().replace("[", "").replace("]", ""));
     }
 }
